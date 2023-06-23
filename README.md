@@ -15,22 +15,39 @@ npm install argil-sdk-js
 Here's an example of how to use the SDK:
 
 ```
-import ArgilSdk from 'argil-sdk-js';
+import { ArgilSdk } from 'argil-sdk-ts';
 
 const argilSdk = new ArgilSdk(ARGIL_API_KEY);
 
-// Run a workflow
-argilSdk.workflows.run(WORKFLOW_ID, { input: {INPUT_OBJECT} })
-  .then(response => console.log(response))
-  .catch(error => console.error(error));
+async function runWorkflow(id: string, input: any) {
+  try {
+    const response: any = await argilSdk.workflows.run(id, input);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// List workflow runs
-argilSdk.workflowRuns.list()
-  .then(response => console.log(response))
-  .catch(error => console.error(error));
+async function listWorkflowRuns() {
+  try {
+    const response: any[] = await argilSdk.workflowRuns.list();
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// Get a specific workflow run
-argilSdk.workflowRuns.get(WORKFLOWRUN_ID)
-  .then(response => console.log(response))
-  .catch(error => console.error(error));
+async function getWorkflowRun(id: string) {
+  try {
+    const response: any = await argilSdk.workflowRuns.get(id);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+runWorkflow(YOUR_WORKFLOW_ID, INPUT_ASSOCIATED_TO_YOUR_WORKFLOW);
+listWorkflowRuns();
+getWorkflowRun(YOUR_WORKFLOWRUN_ID);
+
 ```
